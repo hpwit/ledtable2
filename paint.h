@@ -19,6 +19,7 @@ int paintWebSocketPort=82;
 bool paintInitiated=false;
 bool inPaint=false;
 
+
 WebSocketsServer paintWebSocket = WebSocketsServer(paintWebSocketPort);
 
 void initPaintScoketControl()

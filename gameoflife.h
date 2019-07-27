@@ -29,7 +29,9 @@ byte isPixelOn(byte x,byte y)
     if(y%2==0)
         offset=x+y*LED_WIDTH;
     else
-        offset=2 * LED_WIDTH * ((int)floor(y / 2) + 1) - 1 - x;
+        // offset=2 * LED_WIDTH * ((int)floor(y / 2) + 1) -( 1 + x);
+       // offset=(LED_WIDTH<<1) * ( (y>>1) + 1)   -(1+x);
+        offset=(LED_WIDTH<<1) * (y>>1+ 1) - (1 + x);
     if(leds[offset]!=bgColor)
         return 1;
     else
@@ -55,20 +57,23 @@ byte newStatus(byte x,byte y)
 
 void gameOflife()
 {
+    int hue=0;
    long time1=ESP.getCycleCount();
    if(ongoing)
    {
+       hue=(hue+1)%255;
     for(byte i=0;i<LED_WIDTH;i++)
         for(byte j=0;j<LED_HEIGHT;j++)
         {
             if(newStatus(i,j))
-                Tpic[i+j*LED_WIDTH]=CRGB::Red;
+                Tpic[i+j*LED_WIDTH]=CHSV(hue,128,128);
             else
                 Tpic[i+j*LED_WIDTH]=bgColor;
         }
    }
     else
     {
+        Serial.printn("Starting Game of Life");
         fill(bgColor);
        /* for (int y=0;y<LED_HEIGHT;y++)
             Tpic[15+y*LED_WIDTH]=CRGB::Red;*/
@@ -83,11 +88,11 @@ void gameOflife()
     //delay(100);
     //FastLED.show();
     long time2=ESP.getCycleCount();
-    Serial.print((float)160000000/(time2-time1));
+    Serial.print((float)240000000/(time2-time1));
     Serial.println(" FPS game of life");
-    Serial.print((float)160000000/(time3-time1));
+    Serial.print((float)240000000/(time3-time1));
     Serial.println(" FPS cacule life");
-    Serial.print((float)160000000/(time2-time3));
+    Serial.print((float)240000000/(time2-time3));
     Serial.println(" FPS show");
     delay(50);
 }

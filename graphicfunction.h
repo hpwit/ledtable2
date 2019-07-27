@@ -780,19 +780,12 @@ void circleFilled (int xc,int yc,int R, CRGB Color)
         return;
     while(x<=y)
     {
-        // PixelOn(x+x0,y+y0,Color);
-       //PixelOn(xc+x,yc-y, Color);
-        //PixelOn(xc-x,yc-y, Color);
-        //PixelOn(xc+x,yc+y, Color);
-        //PixelOn(xc-x,yc+y, Color);
-        //PixelOn(xc+y,yc-x, Color);
-        //PixelOn(xc-y,yc-x, Color);
-        //PixelOn(xc+y,yc+x, Color);
-       // PixelOn(xc-y,yc+x, Color);
+
         glbDrawLine(xc+x,yc+y,xc-x,yc+y, Color);
         glbDrawLine(xc-x,yc-y,xc+x,yc-y, Color);
         glbDrawLine(xc+y,yc-x,xc-y,yc-x, Color);
         glbDrawLine(xc-y,yc+x,xc+y,yc+x, Color);
+
         
         if(d<=0)
         {
@@ -811,7 +804,47 @@ void circleFilled (int xc,int yc,int R, CRGB Color)
     
 }
 
-
+void circleFilledBoard(int xc,int yc,int R, CRGB Color,CRGB Color2)
+{
+    int x=0;
+    int y=R;
+    int d=(-R)/2;
+    if(R<0)
+        return;
+    while(x<=y)
+    {
+        
+                
+        glbDrawLine(xc+x,yc+y,xc-x,yc+y, Color2);
+        glbDrawLine(xc-x,yc-y,xc+x,yc-y, Color2);
+        glbDrawLine(xc+y,yc-x,xc-y,yc-x, Color2);
+        glbDrawLine(xc-y,yc+x,xc+y,yc+x, Color2);
+        
+        PixelOn(xc+x,yc-y, Color);
+        PixelOn(xc-x,yc-y, Color);
+        PixelOn(xc+x,yc+y, Color);
+        PixelOn(xc-x,yc+y, Color);
+        PixelOn(xc+y,yc-x, Color);
+        PixelOn(xc-y,yc-x, Color);
+        PixelOn(xc+y,yc+x, Color);
+        PixelOn(xc-y,yc+x, Color);
+        
+        if(d<=0)
+        {
+            x++;
+            d+=x;
+        }
+        else
+        {
+            x++;
+            y--;
+            d=d+x-y;
+            // d=d-y;
+        }
+        
+    }
+    
+}
 
 void drawcircleFilled(int xc, int yc, int radius, CRGB Color)
 {
