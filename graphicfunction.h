@@ -17,7 +17,7 @@ void pixOn(byte x,byte y)
 void pixOnR(byte x,byte y,CRGB color)
 {
     CRGB color2=color;
-    if(y==0 or y>=24)
+    if(y==0)
     {
         
         color2.b=color.b;
